@@ -7,16 +7,17 @@
 	$api_key = $configData['api_key'];
 	$access_key = $configData['access_key'];
 	$user_name = $configData['user_name'];
+	$logFile = 'createCustomer.log.txt';
 // *****END CONFIGURATION*****
 // Initialize the apptivo_toolset object
 include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'class.apptivo.php');
 $apptivoApi = new apptivoApi($api_key, $access_key, $user_name);
 //Load common functions
-include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'functions.php');
+include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'commonFunctions.php');
 
 //We'll manually build the data.  This would come from a web form, or some other data source you plug in.
-$customerName = 'Trebuchet Engineering2';
-logIt('Starting script to generate customer for customerName:'.$customerName);
+$customerName = 'Tran Tech';
+logIt('Starting script to generate customer for customerName:'.$customerName,true,$logFile);
 
 //assigneeToObjectRefName & assigneeToObjectRefId must be replaced with the employee details from your firm.  
 $assigneeToObjectRefName = 'API User';
@@ -28,16 +29,17 @@ $customerCategoryId = 27792;
 $statusName = 'Active';
 $statusId = 10000;
 //Phone numbers are passed in an array.  You'll need to get phoneType & phoneType code from your configuration.  Common to just hard-code the type values.
-$phoneNumber = '(855) 345-2342';
+$phoneNumber = '(855) 444-2342';
 $phoneType = 'Business';
 $phoneTypeCode = 'PHONE_BUSINESS';
 
 //Note that we're building the array with an empty customAttributes array.  We can use a common method below to insert the JSON for specific attributes.  This makes it easier when dealing with a lot of dynamic ids/values
+//Another note, this does not include all standard fields.  For example you might want to include the territory or address of a customer.
 $customerData = Array(
 	'customerName' => urlencode($customerName),
-	'assigneeToObjectId' => 8,
-	'assigneeToObjectRefName' => urlencode($assigneeToObjectRefName),
-	'assigneeToObjectRefId' => $assigneeToObjectRefId,
+	'assigneeObjectRefName' => urlencode($assigneeToObjectRefName),
+	'assigneeObjectRefId' => $assigneeToObjectRefId,
+	'assigneeObjectId' => 8,
 	'customerCategory' => urlencode($customerCategory),
 	'customerCategoryId' => $customerCategoryId,
 	'statusName' => urlencode($statusName),
@@ -91,9 +93,9 @@ $customerData = $updateResponse['returnObj'];
 $newCustomer = $apptivoApi->save('customers',json_encode($customerData));
 
 if($newCustomer) {
-	logIt('Successfully created a customer with customerId:'.$newCustomer->customer->customerId);
+	logIt('Successfully created a customer with customerId:'.$newCustomer->customer->customerId,true,$logFile);
 }else{
-	logIt('Something went wrong, we failed to create the new customer');
+	logIt('Something went wrong, we failed to create the new customer',true,$logFile);
 }
 
 ?>
