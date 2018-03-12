@@ -180,6 +180,14 @@ class apptivoApi
 					'objectId' => 3
 				);
 			break;
+			case 'estimates':
+				$objParams = Array(
+					'objectUrlName' => 'estimates',
+					'objectDataName' => 'estimateData',
+					'objectIdName' => 'estimateId',
+					'objectId' => 155
+				);
+			break;
 			case 'leads':
 				$objParams = Array(
 					'objectUrlName' => 'leads',
