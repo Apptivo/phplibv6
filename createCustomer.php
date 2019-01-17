@@ -8,6 +8,8 @@
 	$access_key = $configData['access_key'];
 	$user_name = $configData['user_name'];
 	$logFile = 'createCustomer.log.txt';
+	$GLOBALS['allLogText'] = '';
+	$GLOBALS['allLogTextHtml'] = '';
 // *****END CONFIGURATION*****
 // Initialize the apptivo_toolset object
 include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'class.apptivo.php');
@@ -16,18 +18,18 @@ $apptivoApi = new apptivoApi($api_key, $access_key, $user_name);
 include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'commonFunctions.php');
 
 //We'll manually build the data.  This would come from a web form, or some other data source you plug in.
-$customerName = 'Tran Tech';
+$customerName = 'Audio Pros2';
 logIt('Starting script to generate customer for customerName:'.$customerName,true,$logFile);
 
 //assigneeToObjectRefName & assigneeToObjectRefId must be replaced with the employee details from your firm.  
 $assigneeToObjectRefName = 'API User';
 $assigneeToObjectRefId = 78290;
 //customerCategoryName and customerCategoryId must be replaced with the values configured in your firm
-$customerCategory = 'SMB';
-$customerCategoryId = 27792;
+$customerCategory = 'Retail';
+$customerCategoryId = 33726;
 //statusName and statusId must be replaced with the values configured in your firm
-$statusName = 'Active';
-$statusId = 10000;
+$statusName = 'Prospect';
+$statusId = 10002;
 //Phone numbers are passed in an array.  You'll need to get phoneType & phoneType code from your configuration.  Common to just hard-code the type values.
 $phoneNumber = '(855) 444-2342';
 $phoneType = 'Business';

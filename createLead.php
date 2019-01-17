@@ -9,6 +9,8 @@
 	$access_key = $configData['access_key'];
 	$user_name = $configData['user_name'];
 	$logFile = 'createLead.log.txt';
+	$GLOBALS['allLogText'] = '';
+	$GLOBALS['allLogTextHtml'] = '';
 // *****END CONFIGURATION*****
 // Initialize the apptivo_toolset object
 include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'class.apptivo.php');

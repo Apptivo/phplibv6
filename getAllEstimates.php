@@ -8,6 +8,8 @@
 	$access_key = $configData['access_key'];
 	$user_name = $configData['user_name'];
 	$logFile = 'getAllEstimates.log.txt';
+	$GLOBALS['allLogText'] = '';
+	$GLOBALS['allLogTextHtml'] = '';
 // *****END CONFIGURATION*****
 // Initialize the apptivoApi object
 include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'class.apptivo.php');

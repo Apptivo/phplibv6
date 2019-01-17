@@ -226,7 +226,7 @@ class apptivoApi
 }
 
 function updateOrAddCustomAttribute($inputObj,$customAttributeArray, $mode = 1) {
-	//We loop through the current attirbutes to see if the new one exists, and update if found, or insert if not found
+	//We loop through the current attributes to see if the new one exists, and update if found, or insert if not found
 	//Mode is either 1 or 2.
 	//Mode 1 indicates that we want to replace any value that is not exactly the same. 
 	//Mode 2 indicates that we only want to update the value if nothing previously exists
@@ -236,6 +236,10 @@ function updateOrAddCustomAttribute($inputObj,$customAttributeArray, $mode = 1) 
 	logIt('Starting function updateorAddCustomAttribute to check for updates on attributeId='.$customAttributeArray['customAttributeId']);
 	$resultCode = 0;
 	$count = 0;
+	//For backwards compatibility we'll check if the inputObj is an array or object, then convert if to and object if not.  Old examples passed this in as an array, producing warnings.
+	if(!is_object($inputObj)) {
+		$inputObj = (object) $inputObj;
+	}
 	foreach($inputObj->customAttributes as $curAttribute) {	
 		if($curAttribute->customAttributeId == $customAttributeArray['customAttributeId']) { 
 			logIt('customAttributeId='.$curAttribute->customAttributeId.'   and    customAttributeValue='.$curAttribute->customAttributeValue,true);
