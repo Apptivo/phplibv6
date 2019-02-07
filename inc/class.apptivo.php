@@ -188,6 +188,14 @@ class apptivoApi
 					'objectId' => 155
 				);
 			break;
+			case 'invoices':
+				$objParams = Array(
+					'objectUrlName' => 'invoice',
+					'objectDataName' => 'invoiceData',
+					'objectIdName' => 'invoiceId',
+					'objectId' => 33
+				);
+			break;
 			case 'leads':
 				$objParams = Array(
 					'objectUrlName' => 'leads',

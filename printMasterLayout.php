@@ -1,6 +1,6 @@
 <?php
 // *****START CONFIGURATION*****
-	include(dirname(__FILE__)  . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR . 'th.config.php');
+	include(dirname(__FILE__)  . DIRECTORY_SEPARATOR . 'conf' . DIRECTORY_SEPARATOR . 'glocialtech.config.php');
 	$configData = getConfig();
 	$GLOBALS['debugMode'] = 'print'; //log or print
 	//Apptivo API credentials, sample employee provided who we'll make API calls on behalf of
@@ -10,7 +10,7 @@
 	$logFile = 'printMasterLayout.log.txt';
 	$GLOBALS['allLogText'] = '';
 	$GLOBALS['allLogTextHtml'] = '';
-	$app = 'customers'; //This determines which app we want to output.
+	$app = 'invoices'; //This determines which app we want to output.
 // *****END CONFIGURATION*****
 // Initialize the apptivo_toolset object
 include(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'class.apptivo.php');
@@ -43,15 +43,16 @@ foreach($sectionsArr as $curSection) {
 				//We need to print the main attribute + all values
 				print '--<strong>Attribute Name:</strong> '.$curAttribute->label->modifiedLabel.$removedString.' | <strong>Attribute ID:</strong> '.$curAttribute->attributeId.' | <strong>Attribute Tag Name: </strong> '.$curAttribute->right[0]->tagName.'<br>';
 				foreach($curAttribute->right[0]->optionValueList as $curValue) {
-					$valueName = $curValue->optionObject;
-					$valueId = $curValue->optionId;
-					print '&nbsp;&nbsp;&nbsp;--<strong>Value Name:</strong> '.$valueName.' | <strong>Value ID:</strong> '.$valueId.'<br>';	
+					if(is_object($curValue) && isset($curValue->optionObject)) {
+						$valueName = $curValue->optionObject;
+						$valueId = $curValue->optionId;
+						print '&nbsp;&nbsp;&nbsp;--<strong>Value Name:</strong> '.$valueName.' | <strong>Value ID:</strong> '.$valueId.'<br>';
+					}	
 				}
 			}else{
 				//No values needed, print single line
 				print '--<strong>Attribute Name:</strong> '.$curAttribute->label->modifiedLabel.$removedString.' | <strong>Attribute ID:</strong> '.$curAttribute->attributeId.'<br>';
 			}
-			//optionValueList->optionObject / optionId
 		}
 	}
 	print '<br>';
