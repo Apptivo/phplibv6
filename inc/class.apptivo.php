@@ -161,7 +161,8 @@ class apptivoApi
 				$objParams = Array(
 					'objectUrlName' => 'cases',
 					'objectDataName' => 'caseData',
-					'objectIdName' => 'caseId'
+					'objectIdName' => 'caseId',
+					'objectId' => 59
 				);
 			break;
 			case 'contacts':
@@ -178,6 +179,14 @@ class apptivoApi
 					'objectDataName' => 'customerData',
 					'objectIdName' => 'customerId',
 					'objectId' => 3
+				);
+			break;
+			case 'employees':
+				$objParams = Array(
+					'objectUrlName' => 'employees',
+					'objectDataName' => 'employeeData',
+					'objectIdName' => 'employeeId',
+					'objectId' => 8
 				);
 			break;
 			case 'estimates':
