@@ -303,6 +303,9 @@ function updateOrAddCustomAttribute($inputObj,$customAttributeArray, $mode = 1) 
 					case 'input':
 						$inputObj->customAttributes[$count]->customAttributeValue = $customAttributeArray['customAttributeValue'];
 					break;
+					case 'textarea':
+						$inputObj->customAttributes[$count]->customAttributeValue = $customAttributeArray['customAttributeValue'];
+					break;
 					default:
 						logIt('ERROR: function updateOrAddCustomAttribute found an attribute type that was not supported.',true);
 						die();
