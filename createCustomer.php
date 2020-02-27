@@ -37,58 +37,57 @@ $phoneTypeCode = 'PHONE_BUSINESS';
 
 //Note that we're building the array with an empty customAttributes array.  We can use a common method below to insert the JSON for specific attributes.  This makes it easier when dealing with a lot of dynamic ids/values
 //Another note, this does not include all standard fields.  For example you might want to include the territory or address of a customer.
-$objectData = Array(
-	'customerName' => urlencode($customerName),
-	'assigneeObjectRefName' => urlencode($assigneeToObjectRefName),
-	'assigneeObjectRefId' => $assigneeToObjectRefId,
-	'assigneeObjectId' => 8,
-	'customerCategory' => urlencode($customerCategory),
-	'customerCategoryId' => $customerCategoryId,
-	'statusName' => urlencode($statusName),
-	'statusId' => $statusId,
-	'phoneNumber' => Array (
-		Array (
-			'phoneNumber' => urlencode($phoneNumber),
-			'phoneTye' => urlencode($phoneType),
-			'phoneTypeCode' => $phoneTypeCode,
-			'id' => 'cust_phone_input'
-		)
-	),
-	'customAttributes' => Array (
-	)
-);
+$customerObj = new stdClass;
+$customerObj->customerName = urlencode($customerName);
+$customerObj->assigneeObjectRefName = urlencode($assigneeToObjectRefName);
+$customerObj->assigneeObjectRefId = $assigneeToObjectRefId;
+$customerObj->assigneeObjectId = 8;
+$customerObj->customerCategory = urlencode($customerCategory);
+$customerObj->customerCategoryId = $customerCategoryId;
+$customerObj->statusName = urlencode($statusName);
+$customerObj->statusId = $statusId;
+$phoneObj = new stdClass;
+$phoneObj->phoneNumber = urlencode($phoneNumber);
+$phoneObj->phoneTye = urlencode($phoneType);
+$phoneObj->phoneTypeCode = $phoneTypeCode;
+$phoneObj->id = 'cust_phone_input';
+$customerObj->phoneNumber = [];
+$customerObj->phoneNumber[] = $phoneObj;
+$customerObj->customAttributes = [];
 //We can call this function as many times as we need to continue adding to the objectData.  This function also works to ensure the value doesn't already exist, and would replace the existing value is found.
-$customAttributeArray = Array (
-	"customAttributeId" => "check_1503034023492_552_1255031503034023492_857",
-	"customAttributeValue" => "",
-	"customAttributeType" => "check",
-	"customAttributeTagName" => "right_check_1503034896243_777_1163071503034896243_204",
-	"customAttributeName" => "right_check_1503034896243_777_1163071503034896243_204",
-	"fieldType" => "NUMBER",
-	"right_check_1503034896243_777_1163071503034896243_204" => "",
-	"attributeValues" => Array(
-		Array (
-			"attributeId" => "right_check_1503034896243_992_1166451503034896243_484",
-			"attributeValue" => urlencode("Web Design"),
-			"shape" => "",
-			"color" => "",
-		),
-		Array(
-			"attributeId" => "right_check_1503034897640_897_1156921503034897640_479",
-			"attributeValue" => urlencode("IT Services"),
-			"shape" => "",
-			"color" => "",
-		),
-		Array(
-			"attributeId" => "right_check_1503034900642_490_1014151503034900642_315",
-			"attributeValue" => urlencode("Graphic Design"),
-			"shape" => "",
-			"color" => "",
-		),
-	)
-);
+$customAttributeObj = new stdClass;
+$customAttributeObj->customAttributeId = "check_1503034023492_552_1255031503034023492_857";
+$customAttributeObj->customAttributeValue = "";
+$customAttributeObj->customAttributeType = "check";
+$customAttributeObj->customAttributeTagName = "right_check_1503034896243_777_1163071503034896243_204";
+$customAttributeObj->customAttributeName = "right_check_1503034896243_777_1163071503034896243_204";
+$customAttributeObj->fieldType = "NUMBER";
+$customAttributeObj->right_check_1503034896243_777_1163071503034896243_204 = "";
+$customAttributeObj->attributeValues = [];
+
+$attrVal = new stdClass;
+$attrVal->attributeId = "right_check_1503034896243_992_1166451503034896243_484";
+$attrVal->attributeValue = urlencode("Web Design");
+$attrVal->shape = "";
+$attrVal->color = "";
+$customAttributeObj->attributeValues[] = $attrVal;
+
+$attrVal = new stdClass;
+$attrVal->attributeId = "right_check_1503034897640_897_1156921503034897640_479";
+$attrVal->attributeValue = urlencode("IT Services");
+$attrVal->shape = "";
+$attrVal->color = "";
+$customAttributeObj->attributeValues[] = $attrVal;
+
+$attrVal = new stdClass;
+$attrVal->attributeId = "right_check_1503034900642_490_1014151503034900642_315";
+$attrVal->attributeValue = urlencode("Graphic Design");
+$attrVal->shape = "";
+$attrVal->color = "";
+$customAttributeObj->attributeValues[] = $attrVal;
+
 //Return value here is just the updated array for us to use
-$updateResponse = updateOrAddCustomAttribute($objectData,$customAttributeArray);
+$updateResponse = updateOrAddCustomAttribute($objectData,$customAttributeObj);
 $objectData = $updateResponse['returnObj'];
 
 //Now call the API method to save the customer
